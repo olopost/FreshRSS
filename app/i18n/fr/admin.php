@@ -12,6 +12,11 @@
 
 return array(
 	'auth' => array(
+		'oidc_title' => 'Configuration OpenID Connect',
+		'oidc' => 'Activer l’authentification par OIDC',
+		'oidc_clientid' => 'Client ID',
+		'oidc_secret' => 'Client Secret',
+		'oidc_autoconfurl' => 'URL d’auto-configuration',
 		'allow_anonymous' => 'Autoriser la lecture anonyme des articles de l’utilisateur par défaut (%s)',
 		'allow_anonymous_refresh' => 'Autoriser le rafraîchissement anonyme des flux',
 		'api_enabled' => 'Autoriser l’accès par <abbr>API</abbr> <small>(nécessaire pour les applis mobiles)</small>',

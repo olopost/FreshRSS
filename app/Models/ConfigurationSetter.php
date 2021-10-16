@@ -265,6 +265,10 @@ class FreshRSS_ConfigurationSetter {
 	/**
 	 * The (not so long) list of setters for system configuration.
 	 */
+	private function _oidc(&$data, $value) {
+		$data['oidc'] = $this->handleBool($value);
+	}
+
 	private function _allow_anonymous(&$data, $value) {
 		$data['allow_anonymous'] = $this->handleBool($value) && FreshRSS_Auth::accessNeedsAction();
 	}
@@ -279,7 +283,7 @@ class FreshRSS_ConfigurationSetter {
 
 	private function _auth_type(&$data, $value) {
 		$value = strtolower($value);
-		if (!in_array($value, array('form', 'http_auth', 'none'))) {
+		if (!in_array($value, array('form', 'http_auth', 'none', 'oidc'))) {
 			$value = 'none';
 		}
 		$data['auth_type'] = $value;

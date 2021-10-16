@@ -32,15 +32,27 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 			$anon_refresh = Minz_Request::param('anon_refresh', false);
 			$anon_refresh = ((bool)$anon_refresh) && ($anon_refresh !== 'no');
 			$auth_type = Minz_Request::param('auth_type', 'none');
+			$oidc = Minz_Request::param('oidc', false);
+			$oidc_autoconfurl = Minz_Request::param('oidc_autoconfurl', false);
+			$oidc_clientid = Minz_Request::param('oidc_clientid', false);
+			$oidc_secret = Minz_Request::param('oidc_secret', false);
 			$unsafe_autologin = Minz_Request::param('unsafe_autologin', false);
 			$api_enabled = Minz_Request::param('api_enabled', false);
 			if ($anon != FreshRSS_Context::$system_conf->allow_anonymous ||
 				$auth_type != FreshRSS_Context::$system_conf->auth_type ||
 				$anon_refresh != FreshRSS_Context::$system_conf->allow_anonymous_refresh ||
 				$unsafe_autologin != FreshRSS_Context::$system_conf->unsafe_autologin_enabled ||
-				$api_enabled != FreshRSS_Context::$system_conf->api_enabled) {
+				$api_enabled != FreshRSS_Context::$system_conf->api_enabled ||
+				$oidc != FreshRSS_Context::$system_conf->oidc || 
+				$oidc_autoconfurl != FreshRSS_Context::$system_conf->oidc_autoconfurl || 
+				$oidc_clientid != FreshRSS_Context::$system_conf->oidc_clientid ||
+				$oidc_secret != FreshRSS_Context::$system_conf->oidc_secret ){
 
 				// TODO: test values from form
+				FreshRSS_Context::$system_conf->oidc = $oidc;
+				FreshRSS_Context::$system_conf->oidc_autoconfurl = $oidc_autoconfurl;
+				FreshRSS_Context::$system_conf->oidc_clientid = $oidc_clientid;
+				FreshRSS_Context::$system_conf->oidc_secret = $oidc_secret;
 				FreshRSS_Context::$system_conf->auth_type = $auth_type;
 				FreshRSS_Context::$system_conf->allow_anonymous = $anon;
 				FreshRSS_Context::$system_conf->allow_anonymous_refresh = $anon_refresh;
@@ -81,6 +93,8 @@ class FreshRSS_auth_Controller extends FreshRSS_ActionController {
 					' [HTTP Remote-User=' . htmlspecialchars(httpAuthUser(), ENT_NOQUOTES, 'UTF-8') . ']'
 				)), false);
 			break;
+		case 'oidc':
+			Minz_Error::error(406);
 		case 'none':
 			// It should not happen!
 			Minz_Error::error(404);

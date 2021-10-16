@@ -645,3 +645,13 @@ function errorMessage($errorTitle, $error = '') {
 		<code>sudo -u www-data /usr/bin/php ./FreshRSS/app/actualize_script.php</code></p>
 MSG;
 }
+
+function OIDCAvailable() {
+		if (FreshRSS_Context::$system_conf->oidc_clientid !=  '' &&
+		   FreshRSS_Context::$system_conf->oidc_secret != '' &&
+		   FreshRSS_Context::$system_conf->oidc_autoconfurl != '') {
+		   	return true;
+		   }
+	return '';
+}
+

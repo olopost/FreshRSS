@@ -23,12 +23,15 @@
 						cryptAvailable() ? '' : ' disabled="disabled"' ?>><?= _t('admin.auth.form') ?></option>
 					<option value="http_auth"<?= FreshRSS_Context::$system_conf->auth_type === 'http_auth' ? ' selected="selected"' : '',
 						httpAuthUser() == '' ? ' disabled="disabled"' : '' ?>><?= _t('admin.auth.http') ?> (REMOTE_USER = '<?= httpAuthUser() ?>')</option>
+					<option value="oidc"<?= FreshRSS_Context::$system_conf->auth_type === 'oidc' ? ' selected="selected"' : '',
+						OIDCAvailable() == '' ? ' disabled="disabled"' : '' ?>><?= _t('admin.auth.oidc') ?></option>
 					<option value="none"<?= FreshRSS_Context::$system_conf->auth_type === 'none' ? ' selected="selected"' : '' ?>><?= _t('admin.auth.none') ?></option>
 				</select>
 			</div>
 		</div>
 
-		<div class="form-group">
+
+<div class="form-group">
 			<div class="group-controls">
 				<label class="checkbox" for="anon_access">
 					<input type="checkbox" name="anon_access" id="anon_access" value="1"<?=
@@ -72,6 +75,43 @@
 				</label>
 			</div>
 		</div>
+
+
+		<h2><?=_t('admin.auth.oidc_title') ?></h2>
+		<div class="form-group">
+			<div class="group-controls">
+				<label class="checkbox" for="oidc">
+					<input type="checkbox" name="oidc" id="oidc" value="1"<?=
+						FreshRSS_Context::$system_conf->oidc ? ' checked="checked"' : ''?>/>
+					<?= _t('admin.auth.oidc') ?>
+				</label>
+			</div>
+		</div>
+<div class="form-group">
+	<label class="group-name"><?= _t('admin.auth.oidc_autoconfurl', FreshRSS_Context::$system_conf->default_user) ?></label>
+			<div class="group-controls">
+				<label class="text" for="oidc_autoconfurl">
+					<input type="text" name="oidc_autoconfurl" id="oidc_autoconfurl" size="64" value="<?= FreshRSS_Context::$system_conf->oidc_autoconfurl ?>"/>
+				</label>
+			</div>
+		</div>
+<div class="form-group">
+	<label class="group-name"><?= _t('admin.auth.oidc_clientid', FreshRSS_Context::$system_conf->default_user) ?></label>
+			<div class="group-controls">
+				<label class="text" for="oidc_clientid">
+					<input type="text" name="oidc_clientid" id="oidc_clientid" value="<?= FreshRSS_Context::$system_conf->oidc_clientid ?>"/>
+				</label>
+			</div>
+		</div>
+<div class="form-group">
+	<label class="group-name"><?= _t('admin.auth.oidc_secret', FreshRSS_Context::$system_conf->default_user) ?></label>
+			<div class="group-controls">
+				<label class="text" for="oidc_secret">
+					<input type="password" name="oidc_secret" id="oidc_secret" value="<?= FreshRSS_Context::$system_conf->oidc_secret ?>"/>
+				</label>
+			</div>
+		</div>
+
 
 		<div class="form-group form-actions">
 			<div class="group-controls">
