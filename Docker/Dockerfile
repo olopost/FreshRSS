@@ -9,7 +9,7 @@ RUN apt-get update && \
 	ca-certificates cron \
 	apache2 libapache2-mod-php \
 	php-curl php-gmp php-intl php-mbstring php-xml php-zip \
-	php-sqlite3 php-mysql php-pgsql && \
+	php-sqlite3 php-mysql php-pgsql php-phpseclib php-phpseclib-crypt-rsa php-phpseclib-math-biginteger && \
 	rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/www/FreshRSS/ /run/apache2/
